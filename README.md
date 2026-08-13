@@ -71,7 +71,7 @@ VIP ask_ai, summarize, fetch_json
 
 ---
 
-📄 Лицензия
+📄 Лицензия 
 
 MIT © TheAzdaCode
 
