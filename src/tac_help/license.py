@@ -1,4 +1,4 @@
-# license.py — управление лицензиями
+# license.py — управление лицензиями (версия 0.2.0)
 
 import os
 import json
@@ -47,8 +47,17 @@ def validate_key(key):
         return None, "Неверный ключ"
     key_info = keys[key]
     expires = key_info.get("expires")
-    if expires != "never" and expires < datetime.now().strftime("%Y-%m-%d"):
-        return None, "Срок действия истёк"
+    if expires != "never":
+        try:
+            end = datetime.strptime(expires, "%Y-%m-%d").date()
+            now = datetime.now().date()
+            if end < now:
+                return None, "Срок действия истёк"
+            delta = (end - now).days
+            if delta <= 7:
+                print(f"⚠️ Ваш ключ истекает через {delta} дней. Продлите подписку!")
+        except:
+            return None, "Ошибка формата даты"
     return key_info.get("tier"), None
 
 def get_tier():
@@ -57,6 +66,7 @@ def get_tier():
         return "free"
     tier, error = validate_key(key)
     if error:
+        print(f"❌ {error}")
         return "free"
     return tier
 
