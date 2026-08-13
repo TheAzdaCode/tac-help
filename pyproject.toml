@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tac-help"
-version = "0.2.0"
+version = "0.2.1"
 authors = [
     {name = "Arsenij Peyzazhnij", email = "theazdacompany@atomicmail.io"},
 ]
@@ -22,6 +22,9 @@ classifiers = [
 Homepage = "https://github.com/TheAzdaCode/tac-help"
 Repository = "https://github.com/TheAzdaCode/tac-help"
 Issues = "https://github.com/TheAzdaCode/tac-help/issues"
+
+[project.scripts]
+tac-help = "tac_help.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
