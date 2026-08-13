@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tac-help"
+version = "0.1.0"
+authors = [
+    {name = "Arsenij Peyzazhnij", email = "theazdacompany@atomicmail.io"},
+]
+description = "Универсальная библиотека для разработчиков с системой лицензирования."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+]
+
+[project.urls]
+Homepage = "https://github.com/TheAzdaCode/tac-help"
+Repository = "https://github.com/TheAzdaCode/tac-help"
+Issues = "https://github.com/TheAzdaCode/tac-help/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
