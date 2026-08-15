@@ -1,14 +1,15 @@
-# pro.py — функции PRO
+# pro.py — функции PRO (v0.3.0)
 
 import time
 from .license import has_access, PLAYEROK_URL
 
 def progress_bar(iterable, desc="Progress", length=30):
-    """Прогресс-бар для циклов. Доступен в PRO и выше."""
     if not has_access("pro"):
-        print(f"❌ Функция progress_bar доступна в TAC-PRO и выше.")
-        print(f"👉 Приобретите подписку: {PLAYEROK_URL}")
-        return iterable  # возвращаем итератор без прогресса
+        print(
+            f"❌ Функция progress_bar доступна в TAC-PRO и выше.\n"
+            f"👉 Приобретите подписку: {PLAYEROK_URL}"
+        )
+        return iterable
     total = len(iterable)
     for i, item in enumerate(iterable):
         percent = (i + 1) / total * 100
@@ -16,14 +17,15 @@ def progress_bar(iterable, desc="Progress", length=30):
         bar = "█" * filled + "░" * (length - filled)
         print(f"\r{desc}: [{bar}] {percent:.1f}%", end="")
         yield item
-    print()  # новая строка после завершения
+    print()
 
 def timer(func):
-    """Декоратор для замера времени выполнения функции. Доступен в PRO и выше."""
     if not has_access("pro"):
         def wrapper(*args, **kwargs):
-            print(f"❌ Декоратор timer доступен в TAC-PRO и выше.")
-            print(f"👉 Приобретите подписку: {PLAYEROK_URL}")
+            print(
+                f"❌ Декоратор timer доступен в TAC-PRO и выше.\n"
+                f"👉 Приобретите подписку: {PLAYEROK_URL}"
+            )
             return func(*args, **kwargs)
         return wrapper
     def wrapper(*args, **kwargs):
@@ -35,12 +37,13 @@ def timer(func):
     return wrapper
 
 def retry(times=3, delay=1):
-    """Декоратор для повторного вызова функции при ошибке. Доступен в PRO и выше."""
     if not has_access("pro"):
         def decorator(func):
             def wrapper(*args, **kwargs):
-                print(f"❌ Декоратор retry доступен в TAC-PRO и выше.")
-                print(f"👉 Приобретите подписку: {PLAYEROK_URL}")
+                print(
+                    f"❌ Декоратор retry доступен в TAC-PRO и выше.\n"
+                    f"👉 Приобретите подписку: {PLAYEROK_URL}"
+                )
                 return func(*args, **kwargs)
             return wrapper
         return decorator
