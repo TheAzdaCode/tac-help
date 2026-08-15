@@ -1,4 +1,4 @@
-# cli.py — интерфейс командной строки для tac-help
+# cli.py — интерфейс командной строки для tac-help (v0.3.0)
 
 import sys
 import argparse
@@ -9,17 +9,19 @@ def main():
     parser = argparse.ArgumentParser(description="TAC-Help — управление лицензией и утилитами")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    # Команда activate
     activate_parser = subparsers.add_parser("activate", help="Активировать лицензионный ключ")
     activate_parser.add_argument("key", help="Ключ активации (например, TAC-PRO-XXXX-YYYY)")
 
-    # Команда status
     status_parser = subparsers.add_parser("status", help="Показать текущий уровень доступа")
-
-    # Команда list
     list_parser = subparsers.add_parser("list", help="Показать доступные функции по уровням")
+    version_parser = subparsers.add_parser("version", help="Показать версию библиотеки")
 
-    # Команда help (уже есть по умолчанию)
+    toggle_key_parser = subparsers.add_parser("toggle-key", help="Включить/выключить ключ (только владелец)")
+    toggle_key_parser.add_argument("key", help="Ключ для переключения")
+
+    toggle_nice_parser = subparsers.add_parser("toggle-nice-try", help="Включить/выключить пасхалку 'Найс тру!' (только владелец)")
+
+    keys_parser = subparsers.add_parser("keys", help="Показать все ключи с их статусами (только владелец)")
 
     args = parser.parse_args()
 
@@ -44,6 +46,13 @@ def main():
         print(color.yellow("PRO: progress_bar, timer, retry"))
         print(color.magenta("PREMIUM: print_table, input_int, input_choice, menu"))
         print(color.cyan("VIP: ask_ai, summarize, fetch_json"))
+
+    elif args.command == "version":
+        from . import __version__
+        print(f"tac-help версия {__version__}")
+
+    elif args.command in ("toggle-key", "toggle-nice-try", "keys"):
+        print(color.yellow("Эта команда доступна только через key_manager.py."))
 
     else:
         parser.print_help()

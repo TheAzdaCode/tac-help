@@ -1,4 +1,4 @@
-# license.py — управление лицензиями (версия 0.2.0)
+# license.py — управление лицензиями (v0.3.0)
 
 import os
 import json
@@ -41,11 +41,35 @@ def fetch_keys():
         pass
     return {}
 
+def fetch_settings():
+    headers = {"X-Access-Key": JSONBIN_ACCESS_KEY}
+    try:
+        response = requests.get(JSONBIN_URL, headers=headers)
+        if response.status_code == 200:
+            return response.json().get("record", {}).get("settings", {})
+    except:
+        pass
+    return {}
+
 def validate_key(key):
     keys = fetch_keys()
+    
+    # Пасхалка "Найс тру!" (если включена в настройках)
+    settings = fetch_settings()
+    nice_try_enabled = settings.get("nice_try_enabled", False)
+    if nice_try_enabled and key.startswith("TAC-MASTER") and key not in keys:
+        print("❌ Сорян братан, Найс тру!")
+        return None, "Nice try"
+    
     if key not in keys:
         return None, "Неверный ключ"
+    
     key_info = keys[key]
+    
+    # Проверка активности ключа
+    if not key_info.get("active", True):
+        return None, "Ключ отключён владельцем"
+    
     expires = key_info.get("expires")
     if expires != "never":
         try:
@@ -58,6 +82,7 @@ def validate_key(key):
                 print(f"⚠️ Ваш ключ истекает через {delta} дней. Продлите подписку!")
         except:
             return None, "Ошибка формата даты"
+    
     return key_info.get("tier"), None
 
 def get_tier():
