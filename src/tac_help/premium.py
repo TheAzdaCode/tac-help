@@ -1,12 +1,12 @@
-# premium.py — функции PREMIUM (v0.4.1)
+# premium.py — функции PREMIUM (v0.4.3)
 
+import json
+import os
 from .license import has_access, PLAYEROK_URL
 from .core import color
 from .utils import load_json, save_json, log_info, log_warn, log_error
-import json
-import os
 
-# ===== СТАРЫЕ ФУНКЦИИ (без изменений) =====
+# ===== СТАРЫЕ ФУНКЦИИ =====
 
 def print_table(data, headers=None, title=None):
     if not has_access("premium"):

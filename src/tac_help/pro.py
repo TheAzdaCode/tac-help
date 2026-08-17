@@ -1,4 +1,4 @@
-# pro.py — функции PRO (v0.4.1)
+# pro.py — функции PRO (v0.4.3)
 
 import time
 import os
