@@ -1,11 +1,11 @@
-# pro.py — функции PRO (v0.4.0)
+# pro.py — функции PRO (v0.4.1)
 
 import time
 import os
 import json
 from .license import has_access, PLAYEROK_URL
-from .core import color, log_info, log_warn, log_error
-from .utils import load_json, save_json
+from .core import color
+from .utils import load_json, save_json, log_info, log_warn, log_error
 
 # ===== СТАРЫЕ ФУНКЦИИ =====
 
@@ -63,7 +63,6 @@ def retry(times=3, delay=1):
 # ===== НОВЫЕ PRO-ФУНКЦИИ =====
 
 def backup_json(path, backup_dir=None):
-    """Создаёт резервную копию JSON-файла (PRO)."""
     if not has_access("pro"):
         print(color.red(f"❌ Функция backup_json доступна только в PRO и выше."))
         print(color.yellow(f"👉 Приобретите подписку: {PLAYEROK_URL}"))
@@ -88,7 +87,6 @@ def backup_json(path, backup_dir=None):
         return False
 
 def diff_json(path1, path2):
-    """Сравнивает два JSON-файла и показывает различия (PRO)."""
     if not has_access("pro"):
         print(color.red(f"❌ Функция diff_json доступна только в PRO и выше."))
         print(color.yellow(f"👉 Приобретите подписку: {PLAYEROK_URL}"))

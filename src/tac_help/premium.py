@@ -1,12 +1,12 @@
-# premium.py — функции PREMIUM (v0.4.0)
+# premium.py — функции PREMIUM (v0.4.1)
 
+from .license import has_access, PLAYEROK_URL
+from .core import color
+from .utils import load_json, save_json, log_info, log_warn, log_error
 import json
 import os
-from .license import has_access, PLAYEROK_URL
-from .core import color, log_info, log_warn, log_error
-from .utils import load_json, save_json
 
-# ===== СТАРЫЕ ФУНКЦИИ =====
+# ===== СТАРЫЕ ФУНКЦИИ (без изменений) =====
 
 def print_table(data, headers=None, title=None):
     if not has_access("premium"):
@@ -85,7 +85,7 @@ def menu(options, title="Меню"):
         return None
     return input_choice(title, options)
 
-# ===== НОВЫЕ PREMIUM-ФУНКЦИИ (РАБОТА С JSON) =====
+# ===== НОВЫЕ JSON-ФУНКЦИИ (с правильными импортами) =====
 
 def _get_nested_value(data, key_path):
     keys = key_path.split(".")
@@ -111,7 +111,6 @@ def _set_nested_value(data, key_path, value):
     return False, "Целевой объект не является словарём"
 
 def update_json(path, key_path, value, show_error=True):
-    """Обновляет значение по пути в JSON-файле (PREMIUM)."""
     if not has_access("premium"):
         print(color.red(f"❌ Функция update_json доступна только в PREMIUM и выше."))
         print(color.yellow(f"👉 Приобретите подписку: {PLAYEROK_URL}"))
@@ -130,7 +129,6 @@ def update_json(path, key_path, value, show_error=True):
     return True
 
 def find_in_json(data, key, filter_value=None, current_path=""):
-    """Рекурсивно ищет все значения по ключу (и опционально по значению) (PREMIUM)."""
     if not has_access("premium"):
         print(color.red(f"❌ Функция find_in_json доступна только в PREMIUM и выше."))
         print(color.yellow(f"👉 Приобретите подписку: {PLAYEROK_URL}"))
@@ -150,7 +148,6 @@ def find_in_json(data, key, filter_value=None, current_path=""):
     return results
 
 def json_path_exists(data, key_path):
-    """Проверяет, существует ли путь в JSON (PREMIUM)."""
     if not has_access("premium"):
         print(color.red(f"❌ Функция json_path_exists доступна только в PREMIUM и выше."))
         print(color.yellow(f"👉 Приобретите подписку: {PLAYEROK_URL}"))
@@ -159,7 +156,6 @@ def json_path_exists(data, key_path):
     return error is None
 
 def pretty_print_json(data, indent=2):
-    """Выводит JSON в консоль с цветами (PREMIUM)."""
     if not has_access("premium"):
         print(color.red(f"❌ Функция pretty_print_json доступна только в PREMIUM и выше."))
         print(color.yellow(f"👉 Приобретите подписку: {PLAYEROK_URL}"))
@@ -195,7 +191,6 @@ def pretty_print_json(data, indent=2):
     _print_item(data)
 
 def merge_json(path1, path2, output_path=None, overwrite=False):
-    """Объединяет два JSON-файла (глубокое объединение) (PREMIUM)."""
     if not has_access("premium"):
         print(color.red(f"❌ Функция merge_json доступна только в PREMIUM и выше."))
         print(color.yellow(f"👉 Приобретите подписку: {PLAYEROK_URL}"))
@@ -223,7 +218,6 @@ def merge_json(path1, path2, output_path=None, overwrite=False):
     return merged
 
 def auto_complete_json(path, partial, show_error=True):
-    """Интерактивное автодополнение пути по частичному вводу (PREMIUM)."""
     if not has_access("premium"):
         print(color.red(f"❌ Функция auto_complete_json доступна только в PREMIUM и выше."))
         print(color.yellow(f"👉 Приобретите подписку: {PLAYEROK_URL}"))
