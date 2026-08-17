@@ -1,12 +1,11 @@
-# vip.py — функции VIP (v0.4.0)
+# vip.py — функции VIP (v0.4.4)
 
 import requests
-import json
-import time
 import signal
 from .license import has_access, PLAYEROK_URL
-from .core import color, log_info, log_warn, log_error
-from .utils import load_json, save_json
+from .core import color
+from .utils import log_info, log_warn, log_error, load_json, save_json
+from .premium import find_in_json  # для тарифных функций
 
 # ===== СТАРЫЕ ФУНКЦИИ (ask_ai, summarize, fetch_json) =====
 

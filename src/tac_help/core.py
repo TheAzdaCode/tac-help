@@ -1,4 +1,4 @@
-# core.py — базовые функции FREE (v0.4.0)
+# core.py — базовые функции FREE (v0.4.4)
 
 import os
 import time
@@ -62,7 +62,6 @@ def confirm(prompt, default=False):
 def input_timeout(prompt, timeout=5):
     """Ввод с таймаутом (если не введено за N секунд — пропускает)."""
     print(prompt, end=" ", flush=True)
-    # Простая версия без select (работает везде)
     import threading
     result = [None]
     def get_input():

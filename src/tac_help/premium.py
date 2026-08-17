@@ -1,4 +1,4 @@
-# premium.py — функции PREMIUM (v0.4.3)
+# premium.py — функции PREMIUM (v0.4.4)
 
 import json
 import os
@@ -85,7 +85,7 @@ def menu(options, title="Меню"):
         return None
     return input_choice(title, options)
 
-# ===== НОВЫЕ JSON-ФУНКЦИИ (с правильными импортами) =====
+# ===== НОВЫЕ JSON-ФУНКЦИИ =====
 
 def _get_nested_value(data, key_path):
     keys = key_path.split(".")
