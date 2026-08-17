@@ -2,9 +2,9 @@
 
 Универсальная Python-библиотека для разработчиков с гибкой системой лицензирования.
 
-tac-help — это набор готовых инструментов для консольных приложений: цветной вывод, прогресс-бары, таблицы, меню, работа с JSON, логирование и даже запросы к ИИ. Всё разделено по уровням доступа: FREE → PRO → PREMIUM → VIP.
+tac-help — это набор готовых инструментов для консольных приложений: цветной вывод, прогресс-бары, таблицы, меню, работа с JSON, логирование, запросы к ИИ и многое другое. Всё разделено по уровням доступа: FREE → PRO → PREMIUM → VIP.
 
-Библиотека уже опубликована на PyPI и устанавливается одной командой.
+Библиотека опубликована на PyPI и устанавливается одной командой.
 
 ---
 
@@ -32,99 +32,86 @@ tac-help version Версия библиотеки
 
 ---
 
-🧩 Уровни доступа
+🧩 Уровни доступа и функции
 
-Уровень Что доступно
-FREE color, pause, clear — всегда бесплатно
-PRO progress_bar, @timer, @retry
-PREMIUM print_table, input_int, input_choice, menu
-VIP ask_ai (локальный и реальный ИИ), summarize, fetch_json
+🔓 FREE (доступны всегда)
 
----
+· color — цветной вывод (red, green, blue, yellow, cyan, magenta, white, bold, italic, underline, bg_*)
+· clear() — очистка экрана
+· pause() — ожидание нажатия Enter
+· confirm(prompt, default=False) — диалог Да/Нет
+· input_timeout(prompt, timeout=5) — ввод с таймаутом
+· spinner(text, duration=3) — анимация загрузки
 
-🎨 Использование в коде
+🟡 PRO (нужен PRO-ключ)
 
-```python
-from tac_help import color, clear, pause, progress_bar, print_table, ask_ai, log_info
+· progress_bar(iterable, desc="", length=30) — прогресс-бар
+· @timer — замер времени выполнения функции
+· @retry(times=3, delay=1) — повтор при ошибке
+· backup_json(path, backup_dir=None) — создание резервной копии JSON
+· diff_json(path1, path2) — сравнение двух JSON
 
-clear()
-print(color.bold_green("Добро пожаловать в tac-help!"))
+🟠 PREMIUM (нужен PREMIUM-ключ)
 
-# Прогресс-бар (PRO)
-for _ in progress_bar(range(10), desc="Загрузка"):
-    pass
+· print_table(data, headers=None, title=None) — вывод таблицы
+· input_int(prompt, min_val=None, max_val=None) — ввод числа с проверкой
+· input_choice(prompt, options) — выбор из списка по номеру
+· menu(options, title="Меню") — интерактивное меню
+· update_json(path, key_path, value) — обновление значения по пути в JSON
+· find_in_json(data, key, filter_value=None) — рекурсивный поиск по ключу
+· json_path_exists(data, key_path) — проверка существования пути
+· pretty_print_json(data, indent=2) — красивый цветной вывод JSON
+· merge_json(path1, path2, output_path=None, overwrite=False) — объединение двух JSON
+· auto_complete_json(path, partial) — интерактивное автодополнение пути
 
-# Таблица (PREMIUM)
-data = [{"Имя": "Арсений", "Роль": "Создатель"}]
-print_table(data, title="Команда")
+🔴 VIP (нужен VIP-ключ)
 
-# ИИ — локальный режим (доступен всем)
-print(ask_ai("Привет!", use_local=True))
-
-# Логирование
-log_info("Скрипт завершён")
-
-pause()
-```
-
----
-
-🤖 ask_ai — работа с ИИ
-
-Локальный режим (демо, доступен всем)
-
-```python
-print(ask_ai("Как дела?", use_local=True))
-# → "У меня всё отлично! А у тебя?"
-```
-
-Реальный ИИ-API (только VIP)
-
-Укажи свой API-ключ (например, DeepSeek) и получи реальный ответ:
-
-```python
-print(ask_ai("Привет!", api_key="sk-..."))
-```
-
-Если ключ не указан — библиотека подскажет, что делать.
-
-Все ошибки API обрабатываются и выводятся понятными сообщениями:
-
-· ⏳ Превышено время ожидания
-· 🔑 Неверный API-ключ
-· 🔌 Нет соединения с интернетом
-· и другие.
+· ask_ai(prompt, api_key=None, use_local=False) — запрос к ИИ (локальный или через API)
+· summarize(text, max_length=100) — сокращение текста
+· fetch_json(url) — получение данных по URL
+· get_tariff_data(path="keys.json") — извлечение всех тарифов
+· get_tier_info(tier, path="keys.json") — информация об уровне
+· get_tier_price(tier, days, path="keys.json") — цена для уровня на N дней
+· format_tariff_list(path="keys.json") — красивый вывод тарифов
+· set_tier_price(tier, days, price, path="prices.json") — установка цены
+· @log_call — логирование вызова функции
+· @timeout(seconds) — ограничение времени выполнения
+· @cache — кеширование результата функции
 
 ---
 
-🛠️ Дополнительные утилиты
+🛠️ Утилиты (доступны всегда)
 
 ```python
 from tac_help import load_json, save_json, log_info, log_warn, log_error
-
-save_json({"key": "value"}, "data.json")
-data = load_json("data.json")
-
-log_info("Информация")
-log_warn("Предупреждение")
-log_error("Ошибка")
 ```
+
+· load_json(path, default=None) — загрузка JSON
+· save_json(path, data, indent=2) — сохранение JSON
+· log_info(msg), log_warn(msg), log_error(msg) — цветное логирование с временем
 
 ---
 
-🔐 Управление ключами (для владельца)
+🎨 Пример использования
 
-Для администраторов есть отдельный скрипт key_manager.py. Он позволяет:
+```python
+from tac_help import color, clear, pause, confirm, spinner, progress_bar, print_table, ask_ai, log_info
 
-· Создавать, удалять, изменять ключи
-· Включать/выключать ключи (поле active)
-· Управлять пасхалкой «Найс тру!»
-· Просматривать просроченные ключи
+clear()
+print(color.bold_green("Добро пожаловать в TAC-HELP!"))
 
-Запуск:
+spinner("Загрузка", 2)
 
-```bash
-python key_manager.py
+if confirm("Показать прогресс-бар?", default=True):
+    for _ in progress_bar(range(10), desc="Обработка"):
+        pass
+
+data = [{"Имя": "Арсений", "Роль": "Создатель"}]
+print_table(data, title="Команда")
+
+print(ask_ai("Привет!", use_local=True))
+
+pause()
 ```
 
 ---
